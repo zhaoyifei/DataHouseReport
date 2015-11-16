@@ -1,0 +1,22 @@
+ .DS_Store
+  2 .DS_Store/*
+  3 logs
+  4 *.log
+  5 pids
+  6 *.pid
+  7 *.seed
+  8 lib-cov
+  9 coverage
+ 10 .grunt
+ 11 build/Release
+ 12 node_modules
+ 13 .lock-wscript
+ 14 .*.swp
+ 15 .idea/*
+ 16 .idea
+ 17 .idea/workspace.xml
+ 18 .settings
+ 19 .project
+ 20 *.DS_Store
+ 21 bower_components/*
+ 22 script/data/*
