@@ -24,7 +24,7 @@ module.exports = {
   dbUrl_test: 'mongodb://localhost/zlyweb',
 
   dbUrl: NODE_ENV == 'production' ? dbUrl_production : NODE_ENV == '_test' ? dbUrl_test : dbUrl_local,
-  port: 9010,
+  port: 9011,
   secret: 'wecare',
 
   env: NODE_ENV == 'production' ? 1 : 0,// 0 测试环境, 1 生产环境
