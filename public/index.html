@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>朱李叶平台数据</title>
+    <link rel="stylesheet" type="text/css" href="./css/styles.css"/>
+    <script type="text/javascript" src="./lib/d3.js"></script>
+</head>
+
+<body>
+
+<div id="chartcarenum"></div>
+<div id="chartdoctorpatientrelationnum"></div>
+<div id="chartdoctordoctorrelationnum"></div>
+<div id="chartusernum"></div>
+<div id="chartexclusivedoctornum"></div>
+
+
+<script type="text/javascript">
+
+
+    function renderchartcare(data) {
+        d3.select("#chartcare").selectAll("div.h-bar") // <-B
+                .data(data)
+                .enter().append("div")
+                .attr("class", "h-bar")
+                .append("span");
+
+        d3.select("#chartcare").selectAll("div.h-bar") // <-C
+                .data(data)
+                .exit().remove();
+
+        d3.select("#chartcare").selectAll("div.h-bar") // <-D
+                .data(data)
+                .attr("class", "h-bar")
+                .style("width", function (d) {
+                    return (d.info * 5) + "px";
+                })
+                .select("span")
+                .text(function (d) {
+                    return d.category;
+                });
+    }
+
+    function renderchartdoctorpatientrelationnum(data) {
+        d3.select("#chartdoctorpatientrelationnum").selectAll("div.h-bar") // <-B
+                .data(data)
+                .enter().append("div")
+                .attr("class", "h-bar")
+                .append("span");
+
+        d3.select("#chartdoctorpatientrelationnum").selectAll("div.h-bar") // <-C
+                .data(data)
+                .exit().remove();
+
+        d3.select("#chartdoctorpatientrelationnum").selectAll("div.h-bar") // <-D
+                .data(data)
+                .attr("class", "h-bar")
+                .style("width", function (d) {
+                    return (d.info * 5) + "px";
+                })
+                .select("span")
+                .text(function (d) {
+                    return d.category;
+                });
+    }
+    function renderchartdoctordoctorrelationnum(data) {
+        d3.select("#chartdoctordoctorrelationnum").selectAll("div.h-bar") // <-B
+                .data(data)
+                .enter().append("div")
+                .attr("class", "h-bar")
+                .append("span");
+
+        d3.select("#chartdoctordoctorrelationnum").selectAll("div.h-bar") // <-C
+                .data(data)
+                .exit().remove();
+
+        d3.select("#chartdoctordoctorrelationnum").selectAll("div.h-bar") // <-D
+                .data(data)
+                .attr("class", "h-bar")
+                .style("width", function (d) {
+                    return (d.info * 5) + "px";
+                })
+                .select("span")
+                .text(function (d) {
+                    return d.category;
+                });
+    }
+    function renderchartusernum(data) {
+        d3.select("#chartusernum").selectAll("div.h-bar") // <-B
+                .data(data)
+                .enter().append("div")
+                .attr("class", "h-bar")
+                .append("span");
+
+        d3.select("#chartusernum").selectAll("div.h-bar") // <-C
+                .data(data)
+                .exit().remove();
+
+        d3.select("#chartusernum").selectAll("div.h-bar") // <-D
+                .data(data)
+                .attr("class", "h-bar")
+                .style("width", function (d) {
+                    return (d.info * 5) + "px";
+                })
+                .select("span")
+                .text(function (d) {
+                    return d.category;
+                });
+    }
+    function renderchartexclusivedoctornum(data) {
+        d3.select("#chartexclusivedoctornum").selectAll("div.h-bar") // <-B
+                .data(data)
+                .enter().append("div")
+                .attr("class", "h-bar")
+                .append("span");
+
+        d3.select("#chartexclusivedoctornum").selectAll("div.h-bar") // <-C
+                .data(data)
+                .exit().remove();
+
+        d3.select("#chartexclusivedoctornum").selectAll("div.h-bar") // <-D
+                .data(data)
+                .attr("class", "h-bar")
+                .style("width", function (d) {
+                    return (d.info * 5) + "px";
+                })
+                .select("span")
+                .text(function (d) {
+                    return d.category;
+                });
+    }
+
+
+    function load(){ // <-E
+        d3.json("carenum", function(error, json){ // <-F
+            var data = data.concat(json);
+            renderchartcare(data);
+        });
+        d3.json("doctorpatientrelationnum", function(error, json){ // <-F
+            var data = data.concat(json);
+            renderchartdoctorpatientrelationnum(data);
+        });
+        d3.json("doctordoctorrelationnum", function(error, json){ // <-F
+            var data = data.concat(json);
+            renderchartdoctordoctorrelationnum(data);
+        });
+        d3.json("usernum.json", function(error, json){ // <-F
+            var data = data.concat(json);
+            renderchartusernum(data);
+        });
+        d3.json("exclusivedoctornum", function(error, json){ // <-F
+            var data = data.concat(json);
+            renderchartexclusivedoctornum(data);
+        });
+    }
+    load();
+</script>
+
+
+</body>
+
+</html>
