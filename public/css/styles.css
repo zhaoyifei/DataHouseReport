@@ -79,6 +79,61 @@ button {
     width: 10px;
     display: inline-block;
 }
+.v-bar1 {
+    min-height: 1px;
+    min-width: 30px;
+    background-color: #FF6347;
+    margin-right: 2px;
+    font-size: 10px;
+    color: #f0f8ff;
+    text-align: center;
+    width: 10px;
+    display: inline-block;
+}
+.v-bar2 {
+    min-height: 1px;
+    min-width: 30px;
+    background-color: #E9967A;
+    margin-right: 2px;
+    font-size: 10px;
+    color: #f0f8ff;
+    text-align: center;
+    width: 10px;
+    display: inline-block;
+}
+.v-bar3 {
+    min-height: 1px;
+    min-width: 30px;
+    background-color: #A020F0;
+    margin-right: 2px;
+    font-size: 10px;
+    color: #f0f8ff;
+    text-align: center;
+    width: 10px;
+    display: inline-block;
+}
+.v-bar4 {
+    min-height: 1px;
+    min-width: 30px;
+    background-color: #8B2323;
+    margin-right: 2px;
+    font-size: 10px;
+    color: #f0f8ff;
+    text-align: center;
+    width: 10px;
+    display: inline-block;
+}
+.v-bar5 {
+    min-height: 1px;
+    min-width: 30px;
+    background-color: #4682b4;
+    margin-right: 2px;
+    font-size: 10px;
+    color: #f0f8ff;
+    text-align: center;
+    width: 10px;
+    display: inline-block;
+}
 
 .baseline {
     height: 1px;

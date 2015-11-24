@@ -68,6 +68,7 @@ StatisticsService.prototype.statistics = function(){
       }}).exec(),
     User.count({}).exec()
   ]).then(function(results){
+    console.log(results);
     var carenum = {
       infoType: "statistics",
       infoName: "carenum",
@@ -79,14 +80,14 @@ StatisticsService.prototype.statistics = function(){
       infoType: "statistics",
       infoName: "doctorpatientrelationnum",
       infoTime: last_zero,
-      info: results[1].result[0].fansNum,
+      info: results[1][0].fansNum,
       description: "医生患者关系"
     };
     var doctordoctorrelationnum = {
       infoType: "statistics",
       infoName: "doctordoctorrelationnum",
       infoTime: last_zero,
-      info: results[1].result[0].upperDoctorsNum,
+      info: results[1][0].upperDoctorsNum,
       description: "医生转诊关系数"
     };
     var usernum = {
@@ -100,7 +101,7 @@ StatisticsService.prototype.statistics = function(){
       infoType: "statistics",
       infoName: "exclusivedoctornum",
       infoTime: last_zero,
-      info: results[1].result[0].soldNum,
+      info: results[1][0].soldNum,
       description: "专属医生签约会员数"
     };
     return Promise.all([
