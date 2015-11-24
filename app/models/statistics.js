@@ -9,6 +9,8 @@ var
 
 var StatisticsSchema = new Schema({
 
+  //db.getCollection('statistics').ensureIndex({"infoTime":-1, "infoName":1},{"unique":true})
+
   infoType: {type: String, default: 0},
   infoName: {type: String, default: 0},
   infoTime: {type: Number},
