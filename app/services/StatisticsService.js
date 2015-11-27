@@ -21,7 +21,7 @@ StatisticsService.prototype.getcarenum = function(){
     infoType: "statistics",
     infoName: "carenum"
   };
-  return Statistics.find(condition).sort({infoTime : 1}).limit(7).exec();
+  return Statistics.find(condition).sort({infoTime : -1}).limit(7).exec();
 };
 //
 StatisticsService.prototype.getdoctorpatientrelationnum = function(){
@@ -115,6 +115,42 @@ StatisticsService.prototype.statistics = function(){
         infoName: "usernum", infoTime: last_zero},usernum,{upsert: true, new: true}).exec(),
       Statistics.findOneAndUpdate({ infoType: "statistics",
         infoName: "exclusivedoctornum", infoTime: last_zero},exclusivedoctornum,{upsert: true, new: true}).exec()
+    ]);
+
+  });
+};
+
+StatisticsService.prototype.statistics = function(){
+  var mapreduce = {
+    mapreduce:'orders',
+    map:function(){
+      var time = new Date(this.createdAt);
+      var d = time.getDate()+"/"+(time.getMonth()+1)+"/"+time.getFullYear();
+      emit(d, this);
+    },
+    reduce:function(key,emits){
+      return Array.isArray(emits) ? emits.length : 1;
+    },
+    out:'a'
+  };
+  return Order.mapReduce(mapreduce)
+    .then(function(model, stats) {
+      console.log('map reduce took %d ms', stats.processtime);
+      return model.find().exec();
+    })
+      .then(function(results){
+        results.forEach();
+    var carenum = {
+      infoType: "statistics",
+      infoName: "carenum",
+      infoTime: last_zero,
+      info: results[0],
+      description: "平台每日care量"
+    };
+
+    return Promise.all([
+      Statistics.findOneAndUpdate({ infoType: "statistics",
+        infoName: "carenum", infoTime: last_zero},carenum,{upsert: true, new: true}).exec()
     ]);
 
   });

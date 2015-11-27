@@ -7,7 +7,7 @@
 var
   db = "zlyweb",
   dbUrl_ut = 'mongodb://localhost/zlyweb_test',
-  dbUrl_production = 'mongodb://ZLY-MONGODB-3/' + db,
+  dbUrl_production = 'mongodb://ZLY-MONGODB-2/' + db,
   dbUrl_test = 'mongodb://ZLY-TEST/' + db,
   dbUrl_local = 'mongodb://localhost/' + db,
   MYSQL_PRO_URL = "ZLY-MYSQL-1",

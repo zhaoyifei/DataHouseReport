@@ -151,22 +151,22 @@
                 });
     }
 
-
+    var sortData = function(a,b){return a.infoTime < b.infoTime? -1: a.infoTime > b.infoTime ? 1 : 0;}
     function load(){ // <-E
         d3.json("carenum", function(error, json){ // <-F
-            renderchartcare(json);
+            renderchartcare(json.sort(sortData));
         });
         d3.json("doctorpatientrelationnum", function(error, json){ // <-F
-            renderchartdoctorpatientrelationnum(json);
+            renderchartdoctorpatientrelationnum(json.sort(sortData));
         });
         d3.json("doctordoctorrelationnum", function(error, json){ // <-F
-            renderchartdoctordoctorrelationnum(json);
+            renderchartdoctordoctorrelationnum(json.sort(sortData));
         });
         d3.json("usernum", function(error, json){ // <-F
-            renderchartusernum(json);
+            renderchartusernum(json.sort(sortData));
         });
         d3.json("exclusivedoctornum", function(error, json){ // <-F
-            renderchartexclusivedoctornum(json);
+            renderchartexclusivedoctornum(json.sort(sortData));
         });
     }
     load();
