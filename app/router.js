@@ -15,4 +15,9 @@ module.exports = function (app) {
   app.get("/doctordoctorrelationnum", StatisticsController.getdoctordoctorrelationnum);
   app.get("/usernum", StatisticsController.getusernum);
   app.get("/exclusivedoctornum", StatisticsController.getexclusivedoctornum);
+
+//取得用户的介绍用户列表和排名,如果十名之外不计算排名
+  app.get("/ranking", StatisticsController.getRanking);
+
+  app.get("/rankingsta", StatisticsController.getRankingsta);
 };

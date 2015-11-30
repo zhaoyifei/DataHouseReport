@@ -12,7 +12,13 @@ var
 var modelTools = require('../tools/ModelTools');
 var fields = {
 
+  //介绍人信息
+  inviterPhoneNum: String, // 邀请人电话号码
+  inviterId: String,  // 邀请人UUID
+  inviterNickname: String,  // 邀请人姓名
 
+  name: {type: String, default: ''},//姓名
+  phoneNum: String,//注册手机号码,必需
 
   createdAt: {type: Number, default: Date.now},//用户注册时间
   updatedAt: {type: Number, default: Date.now},//用户最近的更新时间

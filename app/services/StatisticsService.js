@@ -120,7 +120,7 @@ StatisticsService.prototype.statistics = function(){
   });
 };
 
-StatisticsService.prototype.statistics = function(){
+StatisticsService.prototype.mapReduce = function(){
   var mapreduce = {
     mapreduce:'orders',
     map:function(){
@@ -156,4 +156,20 @@ StatisticsService.prototype.statistics = function(){
   });
 };
 
+StatisticsService.prototype.getRanking = function(){
+  var condition = {
+    infoType: "statistics",
+    infoName: "exclusivedoctornum"
+  };
+  return Statistics.find(condition).sort({infoTime : 1}).limit(7).exec();
+};
+
+
+StatisticsService.prototype.getRanking = function(){
+  var condition = {
+    infoType: "statistics",
+    infoName: "exclusivedoctornum"
+  };
+  return Statistics.find(condition).sort({infoTime : 1}).limit(7).exec();
+};
 module.exports = exports = new StatisticsService();

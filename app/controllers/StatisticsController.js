@@ -64,4 +64,22 @@ StatisticsController.prototype.statistics = function(req,res){
   });
 };
 
+StatisticsController.prototype.getRanking = function(req,res){
+
+  StatisticsService.getRanking().then(function(result){
+    apiHandler.OK(res,result);
+  },function(err){
+    return apiHandler.handleErr(res,err);
+  });
+};
+
+StatisticsController.prototype.getRanking = function(req,res){
+
+  StatisticsService.getRanking().then(function(result){
+    apiHandler.OK(res,result);
+  },function(err){
+    return apiHandler.handleErr(res,err);
+  });
+};
+
 module.exports = exports = new StatisticsController();

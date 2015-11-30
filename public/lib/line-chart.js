@@ -17,9 +17,9 @@ function lineChart(chartDiv, chartName) { // <-1A
 
   _chart.render = function () { // <-2A
     if (!_svg) {
-      var blockName = "body";//"#"+chartDiv
-      d3.select(blockName).append("div").attr("class", "baseline");
-      d3.select(blockName).append("span").text(chartName);
+      var blockName = "#"+chartDiv;//"body";
+    //  d3.select(blockName).append("div").attr("class", "baseline");
+      //d3.select(blockName).append("span").text(chartName);
       _svg = d3.select(blockName).append("svg") // <-2B
         .attr("height", _height)
         .attr("width", _width);
@@ -42,8 +42,17 @@ function lineChart(chartDiv, chartName) { // <-1A
   }
 
   function renderXAxis(axesG){
+   // var segment = _x.domain[1]-_x.domain[0]/86400000;
     var xAxis = d3.svg.axis()
       .scale(_x.range([0, quadrantWidth()]))
+      .ticks(8)
+      .tickFormat(
+        function(v)
+          {
+            var format = d3.time.format("%m-%d %H:%M");
+            return format(new Date(v));
+          }
+      )
       .orient("bottom");
 
     axesG.append("g")
@@ -221,84 +230,53 @@ function lineChart(chartDiv, chartName) { // <-1A
 
 var sortData = function(a,b){return a.infoTime < b.infoTime? -1: a.infoTime > b.infoTime ? 1 : 0;}
 function load(){ // <-E
-  d3.json("carenum", function(error, json){ // <-F
-    var series = [];
-    var max = 50;
-    if(json){
-      var data = json.sort(sortData);
-      d3.range(data.length).map(function (i) {
-        max = max < data[i].info*1.1 ? data[i].info*1.1 : max;
-        series.push( {x: i, y: data[i].info});
-      });
-      var chart = lineChart("carenum", "每日care数")
-        .x(d3.scale.linear().domain([0, data.length+1]))
-        .y(d3.scale.linear().domain([0, max]));
-      chart.addSeries(series);
-      chart.render();
-    }
-  });
+  drawLine( "每日care数", "carenum", "chartcarenum");
+  drawLine( "医生患者关系数", "doctorpatientrelationnum", "chartdoctorpatientrelationnum");
+  drawLine( "医生转诊关系数", "doctordoctorrelationnum", "chartdoctordoctorrelationnum");
+  drawLine( "用户数", "usernum", "chartusernum");
+  drawLine( "专属医生签约会员数", "exclusivedoctornum", "chartexclusivedoctornum");
+  //d3.json("exclusivedoctornum", function(error, json){ // <-F
+  //  var series = [];
+  //  var max = 100;
+  //  if(json) {
+  //    var data = json.sort(sortData);
+  //    var beginTime = 0;
+  //    var endTime = 0;
+  //    d3.range(data.length).map(function (i) {
+  //      max = max < data[i].info*1.1 ? data[i].info*1.1 : max;
+  //      beginTime = beginTime > data[i].infoTime ? data[i].infoTime : beginTime;
+  //      endTime = endTime < data[i].infoTime ? data[i].infoTime : endTime;
+  //      series.push( {x: new Date(data[i].infoTime), y: data[i].info});
+  //    });
+  //    var chart = lineChart("exclusivedoctornum", "专属医生签约会员数")
+  //      .x(d3.scale.linear().domain([new Date(beginTime), new Date(endTime)]))
+  //      .y(d3.scale.linear().domain([0, max]));
+  //    chart.addSeries(series);
+  //    chart.render();
+  //  }
+  //});
 
-  d3.json("doctorpatientrelationnum", function(error, json){ // <-F
-    var series = [];
-    var max = 100;
-    if(json){
-      var data = json.sort(sortData);
-      d3.range(data.length).map(function (i) {
-        max = max < data[i].info*1.1 ? data[i].info*1.1 : max;
-        series.push( {x: i, y: data[i].info});
-      });
-      var chart = lineChart("doctorpatientrelationnum","医生患者关系数")
-        .x(d3.scale.linear().domain([0, data.length+1]))
-        .y(d3.scale.linear().domain([0, max]));
-      chart.addSeries(series);
-      chart.render();
-    }
-
-  });
-
-  d3.json("doctordoctorrelationnum", function(error, json){ // <-F
+}
+function drawLine(title, url, divID){
+  var oneDate = 1 * 24 * 60 * 60 * 1000;
+  d3.json(url, function(error, json){ // <-F
     var series = [];
     var max = 100;
     if(json) {
       var data = json.sort(sortData);
+      var beginTime = Date.now();
+      var endTime = 0;
+
       d3.range(data.length).map(function (i) {
-        max = max < data[i].info*1.1 ? data[i].info*1.1 : max;
-        series.push( {x: i, y: data[i].info});
+        max = max < data[i].info * 1.1 ? data[i].info * 1.1 : max;
+        var dataTime = data[i].infoTime - oneDate;
+        beginTime = beginTime > dataTime ? dataTime : beginTime;
+        endTime = endTime < dataTime ? dataTime : endTime;
+        series.push( {x: dataTime, y: data[i].info});
       });
-      var chart = lineChart("doctordoctorrelationnum","医生转诊关系数")
-        .x(d3.scale.linear().domain([0, data.length+1]))
-        .y(d3.scale.linear().domain([0, max]));
-      chart.addSeries(series);
-      chart.render();
-    }
-  });
-  d3.json("usernum", function(error, json){ // <-F
-    var series = [];
-    var max = 100;
-    if(json) {
-      var data = json.sort(sortData);
-      d3.range(data.length).map(function (i) {
-        max = max < data[i].info*1.1 ? data[i].info*1.1 : max;
-        series.push( {x: i, y: data[i].info});
-      });
-      var chart = lineChart("usernum", "用户数")
-        .x(d3.scale.linear().domain([0, data.length+1]))
-        .y(d3.scale.linear().domain([0, max]));
-      chart.addSeries(series);
-      chart.render();
-    }
-  });
-  d3.json("exclusivedoctornum", function(error, json){ // <-F
-    var series = [];
-    var max = 100;
-    if(json) {
-      var data = json.sort(sortData);
-      d3.range(data.length).map(function (i) {
-        max = max < data[i].info*1.1 ? data[i].info*1.1 : max;
-        series.push( {x: i, y: data[i].info});
-      });
-      var chart = lineChart("exclusivedoctornum", "专属医生签约会员数")
-        .x(d3.scale.linear().domain([0, data.length+1]))
+      var scale = d3.scale.linear().domain([new Date(beginTime), new Date(endTime + oneDate)]);
+      var chart = lineChart(divID, title)
+        .x(scale)
         .y(d3.scale.linear().domain([0, max]));
       chart.addSeries(series);
       chart.render();
